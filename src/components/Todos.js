@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 
 export default class Todos extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentWillMount() {
     console.log('Todos willMount')

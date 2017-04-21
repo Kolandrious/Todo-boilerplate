@@ -29,7 +29,7 @@ class App extends Component {
   }
 
   signUp = (email, password) => {
-    this.setState(state => ({ loadingCreateUser: true }))
+    this.setState(() => ({ loadingCreateUser: true }))
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(response => {
       console.log('registered')
@@ -70,33 +70,45 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route path="/signin" exact render={props => (
-            <SignIn
-              {...props}
-              errorMessage={this.state.errorMessage}
-              user={this.state.user}
-              authenticate={this.signIn}
-              resetErrorMessage={this.resetErrorMessage}
-              loading={this.state.loadingSignInUser}
-            />
-          )} />
-          <Route path="/signup" exact render={props => (
-            <SignUp
-              {...props}
-              errorMessage={this.state.errorMessage}
-              user={this.state.user}
-              createUser={this.signUp}
-              resetErrorMessage={this.resetErrorMessage}
-              loading={this.state.loadingCreateUser}
-            />
-          )} />
-          <Route path="/todos" exact render={props => (
-            <Todos
-              {...props}
-              logout={this.logout}
-              user={this.state.user}
-            />
-          )} />
+          <Route
+            exact
+            path="/signin"
+            render={props => (
+              <SignIn
+                {...props}
+                errorMessage={this.state.errorMessage}
+                user={this.state.user}
+                authenticate={this.signIn}
+                resetErrorMessage={this.resetErrorMessage}
+                loading={this.state.loadingSignInUser}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/signup"
+            render={props => (
+              <SignUp
+                {...props}
+                errorMessage={this.state.errorMessage}
+                user={this.state.user}
+                createUser={this.signUp}
+                resetErrorMessage={this.resetErrorMessage}
+                loading={this.state.loadingCreateUser}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/todos"
+            render={props => (
+              <Todos
+                {...props}
+                logout={this.logout}
+                user={this.state.user}
+              />
+            )}
+          />
           <Redirect from="*" to="/todos" />
         </Switch>
       </BrowserRouter>

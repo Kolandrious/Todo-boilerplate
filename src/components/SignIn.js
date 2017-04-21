@@ -29,13 +29,13 @@ export default class SignIn extends Component {
   changeEmail = (event) => {
     event.preventDefault()
     const email = event.target.value.trim()
-    this.setState(state => ({ email }))
+    this.setState(() => ({ email }))
   }
 
   changePassword = (event) => {
     event.preventDefault()
     const password = event.target.value
-    this.setState(state => ({ password }))
+    this.setState(() => ({ password }))
   }
 
   submit = (event) => {
