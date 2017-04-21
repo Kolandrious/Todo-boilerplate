@@ -7,7 +7,9 @@ export default class TodoItem extends Component {
     this.state = {
       text: this.props.text,
       complete: false,
+      id: this.props.id(),
     }
+    console.log(this.state.id)
   }
 
   complete = () => {
@@ -15,7 +17,6 @@ export default class TodoItem extends Component {
   }
 
   render() {
-    console.log(this.props.id)
     const { text, complete } = this.state
     return (
       <div

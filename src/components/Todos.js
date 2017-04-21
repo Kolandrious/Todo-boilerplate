@@ -10,6 +10,8 @@ export default class Todos extends Component {
       todos: [],
       text: '',
     }
+
+    this.counter = 1
   }
 
   componentWillMount() {
@@ -24,6 +26,8 @@ export default class Todos extends Component {
       this.props.history.push('/signin')
     }
   }
+
+  id = () => (this.counter++)
 
   addTodo = (e) => {
     e.preventDefault()
@@ -55,7 +59,15 @@ export default class Todos extends Component {
         </div>
         <div className="todoList">
           <div className="todos">
-            {todos.map(todo => (<TodoItem text={todo} key={performance.now()} id={performance.now()} />))}
+            {todos.map((todo, id) => {
+              return (
+                <TodoItem
+                  text={todo}
+                  key={id}
+                  id={this.id}
+                />
+              )
+            })}
           </div>
           <form className="addTodo">
             <input
