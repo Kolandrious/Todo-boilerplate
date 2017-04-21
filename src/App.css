@@ -1,0 +1,7 @@
+.todos {
+  cursor: default;
+}
+
+.todoItem:hover {
+  border: 1px solid blue;
+}

@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
+import TodoItem from './TodoItem'
 
 export default class Todos extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      todos: [],
+      text: '',
+    }
+  }
 
   componentWillMount() {
     console.log('Todos willMount')
@@ -16,7 +25,26 @@ export default class Todos extends Component {
     }
   }
 
+  addTodo = (e) => {
+    e.preventDefault()
+    this.setState(state => {
+      if (!state.text) {
+        return null
+      }
+      const todos = state.todos.concat()
+      const text = ''
+      todos.push(state.text)
+      return ({ todos, text })
+    })
+  }
+
+  onChange = (e) => {
+    const text = e.target.value
+    this.setState(state => ({ text }))
+  }
+
   render() {
+    const { todos } = this.state
     console.log('Todos render')
     return (
       <div className="todos">
@@ -26,7 +54,18 @@ export default class Todos extends Component {
           <button onClick={this.props.logout}>Logout</button>
         </div>
         <div className="todoList">
-
+          <div className="todos">
+            {todos.map(todo => (<TodoItem text={todo} key={performance.now()} id={performance.now()} />))}
+          </div>
+          <form className="addTodo">
+            <input
+              type="text"
+              value={this.state.text}
+              onSubmit={(e) => { this.addTodo(e) }}
+              onChange={this.onChange}
+            />
+            <input type="submit" onClick={(e) => { this.addTodo(e) }} value="Add!" />
+          </form>
         </div>
       </div>
     )
