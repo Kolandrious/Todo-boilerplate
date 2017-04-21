@@ -12,8 +12,8 @@ export default class SignUp extends Component {
   }
 
   componentWillMount() {
-    console.log('SignUp willMount')
-    if (this.props.user.email !== undefined) {
+    console.log('SignUp willMount', this.props.user)
+    if (this.props.user.email) {
       this.props.history.push('/todos')
       return false
     }
@@ -21,7 +21,7 @@ export default class SignUp extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.email !== undefined) {
+    if (nextProps.user.email) {
       this.props.history.push('/todos')
     }
   }

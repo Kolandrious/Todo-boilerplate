@@ -13,7 +13,7 @@ export default class SignIn extends Component {
 
   componentWillMount() {
     console.log('SignIn willMount')
-    if (this.props.user.email !== undefined) {
+    if (this.props.user.email) {
       this.props.history.push('/todos')
       return false
     }
@@ -21,7 +21,7 @@ export default class SignIn extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.email !== undefined) {
+    if (nextProps.user.email) {
       this.props.history.push('/todos')
     }
   }

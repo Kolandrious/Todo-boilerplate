@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import firebase from 'firebase'
 
 export default class Todos extends Component {
   constructor(props) {
@@ -7,7 +8,6 @@ export default class Todos extends Component {
 
   componentWillMount() {
     console.log('Todos willMount')
-    console.log(this.props.user)
     if (this.props.user.email === undefined) {
       this.props.history.push('/signin')
     }

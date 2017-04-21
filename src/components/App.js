@@ -18,22 +18,25 @@ class App extends Component {
     }
   }
 
-  componentWillMount() {
-    // get user from localstorage and log him in
-    const storage = firebase.storage()
-    console.log('App willMount', storage)
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(newUser => {
+      if (newUser) {
+        this.setState(() => ({ user: newUser }))
+      } else {
+        this.setState(() => ({ user: {} }))
+      }
+    })
   }
 
   signUp = (email, password) => {
     this.setState(state => ({ loadingCreateUser: true }))
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(response => {
-      const user = firebase.auth().currentUser
-      console.log('registered', user)
-      this.setState(state => ({ user, loadingCreateUser: false }))
+      console.log('registered')
+      this.setState(() => ({ loadingCreateUser: false }))
     }).catch(error => {
       console.log(error.message)
-      this.setState(state => ({ errorMessage: error.message, loadingCreateUser: false }))
+      this.setState(() => ({ errorMessage: error.message, loadingCreateUser: false }))
     })
   }
 
@@ -41,24 +44,21 @@ class App extends Component {
     this.setState(() => ({ loadingSignInUser: true }))
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(response => {
-      const user = firebase.auth().currentUser
-      console.log('logged in', user)
-      this.setState(state => ({ user, loadingSignInUser: false }))
+      console.log('logged in')
+      this.setState(() => ({ loadingSignInUser: false }))
     }).catch(error => {
       console.log(error.message)
-      this.setState(state => ({ errorMessage: error.message, loadingSignInUser: false }))
+      this.setState(() => ({ errorMessage: error.message, loadingSignInUser: false }))
     })
   }
 
   logout = () => {
-    this.setState(state => ({ user: {} }))
     firebase.auth().signOut()
     .then(() => {
       console.log('sign out')
     }).catch(error => {
       console.log(error)
     })
-    // clear localstorage?
   }
 
   resetErrorMessage = () => {
