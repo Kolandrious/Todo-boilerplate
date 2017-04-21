@@ -13,8 +13,7 @@ class App extends Component {
     this.state = {
       user: {},
       errorMessage: '',
-      loadingCreateUser: false,
-      loadingSignInUser: false,
+      loading: false,
     }
   }
 
@@ -29,26 +28,26 @@ class App extends Component {
   }
 
   signUp = (email, password) => {
-    this.setState(() => ({ loadingCreateUser: true }))
+    this.setState(() => ({ loading: true }))
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(response => {
       console.log('registered')
-      this.setState(() => ({ loadingCreateUser: false }))
+      this.setState(() => ({ loading: false }))
     }).catch(error => {
       console.log(error.message)
-      this.setState(() => ({ errorMessage: error.message, loadingCreateUser: false }))
+      this.setState(() => ({ errorMessage: error.message, loading: false }))
     })
   }
 
   signIn = (email, password) => {
-    this.setState(() => ({ loadingSignInUser: true }))
+    this.setState(() => ({ loading: true }))
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(response => {
       console.log('logged in')
-      this.setState(() => ({ loadingSignInUser: false }))
+      this.setState(() => ({ loading: false }))
     }).catch(error => {
       console.log(error.message)
-      this.setState(() => ({ errorMessage: error.message, loadingSignInUser: false }))
+      this.setState(() => ({ errorMessage: error.message, loading: false }))
     })
   }
 
@@ -80,7 +79,7 @@ class App extends Component {
                 user={this.state.user}
                 authenticate={this.signIn}
                 resetErrorMessage={this.resetErrorMessage}
-                loading={this.state.loadingSignInUser}
+                loading={this.state.loading}
               />
             )}
           />
@@ -94,7 +93,7 @@ class App extends Component {
                 user={this.state.user}
                 createUser={this.signUp}
                 resetErrorMessage={this.resetErrorMessage}
-                loading={this.state.loadingCreateUser}
+                loading={this.state.loading}
               />
             )}
           />
