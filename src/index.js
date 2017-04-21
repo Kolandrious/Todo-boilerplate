@@ -1,21 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
 import firebase from 'firebase'
+import App from './components/App'
+import './index.css'
 
-// Initialize Firebase
-// const firebaseConfig = {
-//   apiKey: '*************',
-//   authDomain: '*************.firebaseapp.com',
-//   databaseURL: 'https://*************.firebaseio.com',
-//   storageBucket: '*************.appspot.com',
-//   messagingSenderId: '*************'
-// }
+const firebaseConfig = {
+  apiKey: "AIzaSyC46KF-9wJMSBBfs1IgPBIHEeDKUk18H5I",
+  authDomain: "boilerplatetodo.firebaseapp.com",
+  databaseURL: "https://boilerplatetodo.firebaseio.com",
+  projectId: "boilerplatetodo",
+  storageBucket: "boilerplatetodo.appspot.com",
+  messagingSenderId: "1042577821865",
+}
 
-// firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)
 
 ReactDOM.render(
-  <App />,
+  <App />
+  ,
   document.getElementById('root')
 );
