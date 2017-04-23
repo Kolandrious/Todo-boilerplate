@@ -52,22 +52,27 @@ export default class SignIn extends Component {
     return (
       <div className="SignIn">
         <h1>Sign in</h1>
-        <input
-          type="text"
-          onChange={this.changeEmail}
-          value={this.state.email}
-          placeholder="E-mail"
-        />
-        <input
-          type="password"
-          onChange={this.changePassword}
-          value={this.state.password}
-          placeholder="Password"
-        />
-        <button onClick={this.submit} >Sign in</button>
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            onChange={this.changeEmail}
+            value={this.state.email}
+            placeholder="E-mail"
+          />
+        </div>
+        <div className="input-group">
+          <input
+            className="form-control"
+            type="password"
+            onChange={this.changePassword}
+            value={this.state.password}
+            placeholder="Password"
+          />
+        </div>
+        <button onClick={this.submit} className="btn btn-outline-primary" disabled={this.props.loading}>Sign in</button>
         <div>Don't have an account? <Link to="/signup">Sign up!</Link></div>
-        <div className="errorMessage">{this.props.errorMessage}</div>
-        <div>{this.props.loading.toString()}</div>
+        {this.props.errorMessage && <div className="alert alert-danger">{this.props.errorMessage}</div>}
       </div>
     )
   }

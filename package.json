@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "firebase": "^3.8.0",
+    "lodash": "^4.17.4",
     "react": "^15.5.4",
-    "react-bootstrap": "^0.30.9",
     "react-dom": "^15.5.4",
     "react-router-dom": "^4.1.1"
   },

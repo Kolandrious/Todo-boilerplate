@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { cloneDeep } from 'lodash'
 import TodoItem from './TodoItem'
 
 export default class Todos extends Component {
@@ -26,17 +27,15 @@ export default class Todos extends Component {
     }
   }
 
-  id = () => (this.counter++)
-
   addTodo = (e) => {
     e.preventDefault()
     this.setState(state => {
       if (!state.text) {
         return null
       }
-      const todos = state.todos.concat()
       const text = ''
-      todos.push(state.text)
+      const todos = state.todos.concat()
+      todos.push({ text: state.text, complete: false, id: this.counter++})
       return ({ todos, text })
     })
   }
@@ -46,6 +45,28 @@ export default class Todos extends Component {
     this.setState(state => ({ text }))
   }
 
+  completeTodo = (id) => {
+    this.setState(state => {
+      const todos = state.todos.concat()
+      const newTodos = todos.map(todo => {
+        const newTodo = cloneDeep(todo)
+        if (newTodo.id === id) {
+          newTodo.complete = !newTodo.complete
+        }
+        return newTodo
+      })
+      return { todos: newTodos }
+    })
+  }
+
+  deleteTodo = (id) => {
+    this.setState(state => {
+      const todos = state.todos.concat()
+      const newTodos = todos.filter(todo => todo.id !== id)
+      return { todos: newTodos }
+    })
+  }
+
   render() {
     const { todos } = this.state
     return (
@@ -53,28 +74,42 @@ export default class Todos extends Component {
         <div className="welcome">
           <h1>Todos</h1>
           <h3>Welcome {this.props.user.email}!</h3>
-          <button onClick={this.props.logout}>Logout</button>
+          <button className="btn btn-outline-danger"onClick={this.props.logout}>Logout</button>
         </div>
-        <div className="todoList">
-          <div className="todos">
-            {todos.map((todo, id) => {
+        <div className="todoList card card-block">
+          <ul className="list-group">
+            {todos.map((todo, index) => {
               return (
                 <TodoItem
-                  text={todo}
-                  key={id}
-                  id={this.id}
+                  text={todo.text}
+                  complete={todo.complete}
+                  id={todo.id}
+                  key={todo.id}
+                  completeTodo={this.completeTodo}
+                  deleteTodo={this.deleteTodo}
+                  number={index+1}
                 />
               )
             })}
-          </div>
-          <form className="addTodo">
-            <input
-              type="text"
-              value={this.state.text}
-              onSubmit={(e) => { this.addTodo(e) }}
-              onChange={this.onChange}
-            />
-            <input type="submit" onClick={(e) => { this.addTodo(e) }} value="Add!" />
+          </ul>
+          <form className="form-inline">
+            <div className="input-group">
+              <input
+                type="text"
+                className="form-control"
+                value={this.state.text}
+                onSubmit={(e) => { this.addTodo(e) }}
+                onChange={this.onChange}
+              />
+              <span className="input-group-btn">
+                <button
+                  type="submit"
+                  className="btn btn-outline-primary"
+                  onClick={(e) => { this.addTodo(e) }}>
+                    Add!
+                </button>
+              </span>
+            </div>
           </form>
         </div>
       </div>

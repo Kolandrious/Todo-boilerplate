@@ -52,22 +52,27 @@ export default class SignUp extends Component {
     return (
       <div className="SignUp">
         <h1>Sign up</h1>
-        <input
-          type="text"
-          onChange={this.changeEmail}
-          value={this.state.email}
-          placeholder="E-mail"
-        />
-        <input
-          type="password"
-          onChange={this.changePassword}
-          value={this.state.password}
-          placeholder="Password"
-        />
-        <button onClick={this.signUp} >Sign up</button>
-        <div>Already registered? <Link to="/signin">Log in!</Link></div>
-        <div className="errorMessage">{this.props.errorMessage}</div>
-        <div>{this.props.loading.toString()}</div>
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              onChange={this.changeEmail}
+              value={this.state.email}
+              placeholder="E-mail"
+            />
+          </div>
+          <div className="input-group">
+            <input
+              className="form-control"
+              type="password"
+              onChange={this.changePassword}
+              value={this.state.password}
+              placeholder="Password"
+            />
+          </div>
+          <button onClick={this.signUp} className="btn btn-outline-primary" disabled={this.props.loading}>Sign up</button>
+          <div>Already registered? <Link to="/signin">Log in!</Link></div>
+          {this.props.errorMessage && <div className="alert alert-danger">{this.props.errorMessage}</div>}
       </div>
     )
   }
