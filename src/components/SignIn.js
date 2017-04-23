@@ -65,7 +65,7 @@ export default class SignIn extends Component {
           placeholder="Password"
         />
         <button onClick={this.submit} >Sign in</button>
-        <span>Don't have an account? <Link to="/signup">Sign up!</Link></span>
+        <div>Don't have an account? <Link to="/signup">Sign up!</Link></div>
         <div className="errorMessage">{this.props.errorMessage}</div>
         <div>{this.props.loading.toString()}</div>
       </div>

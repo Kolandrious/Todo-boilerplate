@@ -10,6 +10,10 @@ export default class TodoItem extends Component {
       id: this.props.id(),
     }
     console.log(this.state.id)
+    this.completeStyle = {
+      textDecoration: 'line-through',
+      color: 'grey'
+    }
   }
 
   complete = () => {
@@ -23,7 +27,8 @@ export default class TodoItem extends Component {
         className="todoItem"
         onClick={() => { this.complete() }}
       >
-        {text} {complete.toString()}
+      {this.state.id}.
+      {complete ? <span style={this.completeStyle}>{text}</span> : text}
       </div>
     )
   }

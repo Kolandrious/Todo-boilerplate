@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import firebase from 'firebase'
 import TodoItem from './TodoItem'
 
 export default class Todos extends Component {
@@ -49,7 +48,6 @@ export default class Todos extends Component {
 
   render() {
     const { todos } = this.state
-    console.log('Todos render')
     return (
       <div className="todos">
         <div className="welcome">
